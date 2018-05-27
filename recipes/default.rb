@@ -8,7 +8,7 @@
 
 %i[version user gems].each do |key|
   if node['chef_rails_rbenv'][key].nil?
-    fail "node['chef_rails_rbenv']['#{key}'] is not set"
+    raise "node['chef_rails_rbenv']['#{key}'] is not set"
   end
 end
 
@@ -19,18 +19,15 @@ end
 
 rbenv_ruby node['chef_rails_rbenv']['version'] do
   user node['chef_rails_rbenv']['user']
-  group node['chef_rails_rbenv']['group']
 end
 
 rbenv_global node['chef_rails_rbenv']['version'] do
   user node['chef_rails_rbenv']['user']
-  group node['chef_rails_rbenv']['group']
 end
 
 node['chef_rails_rbenv']['gems'].each do |gem|
   rbenv_gem gem do
     user node['chef_rails_rbenv']['user']
-    group node['chef_rails_rbenv']['group']
     rbenv_version node['chef_rails_rbenv']['version']
   end
 end

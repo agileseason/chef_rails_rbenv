@@ -6,7 +6,7 @@
 #
 # All rights reserved - Do Not Redistribute
 
-%i[git_ref version user gems].each do |key|
+%i[version user gems].each do |key|
   if node['chef_rails_rbenv'][key].nil?
     fail "node['chef_rails_rbenv']['#{key}'] is not set"
   end

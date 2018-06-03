@@ -26,8 +26,9 @@ rbenv_global node['chef_rails_rbenv']['version'] do
 end
 
 node['chef_rails_rbenv']['gems'].each do |gem|
-  rbenv_gem gem do
+  rbenv_gem(gem.is_a?(String) ? gem : gem[:name]) do
     user node['chef_rails_rbenv']['user']
     rbenv_version node['chef_rails_rbenv']['version']
+    version gem[:version] if !gem.is_a?(String) && gem[:version]
   end
 end
